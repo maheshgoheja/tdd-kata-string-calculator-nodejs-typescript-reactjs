@@ -4,15 +4,46 @@ export class StringCalculator {
       return 0;
     }
 
-    let delimiters = /,|\n/;
+    let delimitersRegex = /,|\n/;
     if (numbers.startsWith("//")) {
-      const delimiterEndIndex = numbers.indexOf("\n");
-      const customDelimiter = numbers.substring(2, delimiterEndIndex);
-      delimiters = new RegExp(`[${customDelimiter}]|\n`);
-      numbers = numbers.substring(delimiterEndIndex + 1);
+      let delimiterStr = numbers.substring(2, numbers.indexOf("\n"));
+      numbers = numbers.substring(numbers.indexOf("\n") + 1);
+
+      if (delimiterStr.startsWith("[") && delimiterStr.endsWith("]")) {
+        const customDelimiters = delimiterStr.slice(1, -1).split("][");
+        // Escape special regex chars
+        const regexDelimiters = customDelimiters
+          .map((delimiter) =>
+            delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+          )
+          .join("|");
+
+        delimitersRegex = new RegExp(`[${regexDelimiters}]|\n`);
+      } else if (delimiterStr.includes("[")) {
+        // Multiple delimiters of any length
+        const customDelimitersMatch = delimiterStr.matchAll(/\[(.*?)\]/g);
+        if (customDelimitersMatch) {
+          const customDelimiters = Array.from(
+            customDelimitersMatch,
+            (match) => match[1]
+          );
+          const regexDelimiters = customDelimiters
+            .map((delimiter) =>
+              delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+            )
+            .join("|");
+          delimitersRegex = new RegExp(`${regexDelimiters}|\n`);
+        } else {
+          // Single delimiter of any length
+          delimitersRegex = new RegExp(`[${delimiterStr}]|\n`);
+        }
+      } else {
+        // Single character delimiter
+        delimitersRegex = new RegExp(`[${delimiterStr}]|\n`);
+      }
     }
 
-    const nums = numbers.split(delimiters).map(Number);
+    const nums = numbers.split(delimitersRegex).map(Number);
 
     const negativeNumbers = nums.filter((num) => num < 0);
     if (negativeNumbers.length > 0) {
