@@ -22,5 +22,12 @@ describe("String Calculator", () => {
     const calculator = new StringCalculator();
     expect(calculator.add("1,2,3,4,5")).toBe(15);
     expect(calculator.add("1,2,3,4,5,6,7,8,9,10,11,12")).toBe(78);
+    expect(calculator.add("10\n20,30,40\n50,60")).toBe(210);
+  });
+
+  it("should handle new lines as delimiters", () => {
+    const calculator = new StringCalculator();
+    expect(calculator.add("1\n2")).toBe(3);
+    expect(calculator.add("1,2\n3")).toBe(6);
   });
 });
