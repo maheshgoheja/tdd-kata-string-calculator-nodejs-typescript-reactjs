@@ -1,0 +1,22 @@
+{
+  "name": "tdd-kata-string-calculator-nodejs-typescript-reactjs",
+  "version": "1.0.0",
+  "description": "This project is a String Calculator built with TDD, using NodeJS/TypeScript for the backend and ReactJS for the frontend. It adds numbers from string inputs, supporting various delimiters, handling negative numbers and large numbers as per the String Calculator Kata.  It includes unit tests and a React UI for easy interaction.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "Mahesh Goheja",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
