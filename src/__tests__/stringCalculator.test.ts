@@ -36,4 +36,12 @@ describe("String Calculator", () => {
     expect(calculator.add("//;\n1;2")).toBe(3);
     expect(calculator.add("//$\n1$2$3")).toBe(6);
   });
+
+  it("should throw an error for negative numbers", () => {
+    const calculator = new StringCalculator();
+    expect(() => calculator.add("-1,2")).toThrow("Negatives not allowed: -1");
+    expect(() => calculator.add("2,-4,3,-5")).toThrow(
+      "Negatives not allowed: -4,-5"
+    );
+  });
 });
