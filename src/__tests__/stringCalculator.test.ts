@@ -61,4 +61,11 @@ describe("String Calculator", () => {
     expect(calculator.add("//[*][%]\n1*2%3")).toBe(6);
     expect(calculator.add("//[**][%%]\n1**2%%3")).toBe(6);
   });
+
+  it("should handle multiple delimiters with length longer than one char", () => {
+    const calculator = new StringCalculator();
+    expect(calculator.add("//[**][%%]\n1**2%%3")).toBe(6);
+    expect(calculator.add("//[abc][def][ghi]\n1abc2def3ghi4")).toBe(10);
+    expect(calculator.add("//[--][;;;]\n1--2;;;3")).toBe(6);
+  });
 });
