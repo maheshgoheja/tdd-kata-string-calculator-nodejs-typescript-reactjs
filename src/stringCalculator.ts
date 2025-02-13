@@ -3,6 +3,7 @@ export class StringCalculator {
     if (numbers === "") {
       return 0;
     }
-    return parseInt(numbers, 10);
+    const nums = numbers.split(",").map(Number);
+    return nums.reduce((sum, num) => sum + num, 0);
   }
 }

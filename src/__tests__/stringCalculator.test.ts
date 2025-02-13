@@ -11,4 +11,10 @@ describe("String Calculator", () => {
     expect(calculator.add("1")).toBe(1);
     expect(calculator.add("5")).toBe(5);
   });
+
+  it("should return the sum of two numbers when comma delimited", () => {
+    const calculator = new StringCalculator();
+    expect(calculator.add("1,2")).toBe(3);
+    expect(calculator.add("5,5")).toBe(10);
+  });
 });
